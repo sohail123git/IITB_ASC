@@ -1,0 +1,170 @@
+.App {
+  text-align: center;
+}
+
+
+/*login page*/
+.Login {
+  background-color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100vw;
+  height: 0vh;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  margin-top: 300px;
+  /* border: 5px solid rgb(87, 111, 126); */
+}
+.formContainer {
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  height: 200px;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 200px;
+}
+
+.formContainer #loginField {
+  background-color: white;
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 20px;
+  color: black;
+}
+
+.formContainer button {
+  font-size: 24px;
+  margin-top: 15px;
+  height: 40px;
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+}
+
+.formContainer button:hover {
+  background-color: black;
+  cursor: pointer;
+  background-color: rgb(15, 17, 19);
+}
+
+.Creators {
+  background-color: grey;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  width: 100vw;
+  height:20hv;
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  color: white;
+}
+
+.logo{
+  height: 300px;
+  width: 300px;
+  margin-top: 50px;
+}
+
+/*home page*/
+
+.navbar {
+  width: 100%;
+  height: 100px;
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+.links{
+  font-size: 24px;
+  width: 200px;
+  text-decoration: none;
+  color: black;
+}
+
+.info{
+  border: 2.5px solid grey;
+}
+
+.Detail{
+  font-size: 24px;
+  width:100%;
+}
+
+.table {
+  font-family: Arial, Helvetica, sans-serif;
+  width:100%;
+  border-collapse: collapse;
+  border: 3px solid rgb(151, 145, 145);
+}
+
+.tr td {
+  padding: 8px;
+}
+
+.tr:nth-child(even){
+  background-color: rgb(151, 145, 145);
+  height: 40px;
+}
+
+.tr:nth-child(odd){
+  background-color: white;
+  height: 40px;
+}
+
+.drop {
+  width: 100%;
+  height: 40px;
+  background-color: rgb(151, 145, 145);
+  display: flex;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  border:0px white;
+}
+
+.drop:hover{
+  background-color: white;
+}
+
+.heading{
+  background-color: rgb(151, 145, 145);
+  color: white;
+  height:50px;
+  font-size: 30px;
+  border:1px solid black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/*registration*/
+.search{
+  margin-left: 700px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.label{
+  background-color: rgb(151, 145, 145);
+  border: 1px solid rgb(151, 145, 145);
+}
+
+.regr{
+  margin-left: 400px;
+  margin-top: 10px;
+}
