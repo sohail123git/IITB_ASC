@@ -8,7 +8,6 @@ const  dropCourse = require("../services/dropCourse");
 
 router.post("/", validateToken, async (req,res) => {
     var response = ''
-    console.log(req.body)
     response = await dropCourse(req)
     res.json({info:response.info[0],prevCourses:response.prevCourses,regdCourses:response.regdCourses})
 })

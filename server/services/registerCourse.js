@@ -10,7 +10,7 @@ async function registerCourse(req) {
         and not exists\
         (\
         select * from takes\
-        where id='"+req.user.ID+"'\
+        where id='"+req.session.userid+"'\
         and prereq_id = takes.course_id\
         )"
     )

@@ -1,19 +1,21 @@
-const {verify} = require("jsonwebtoken")
-
 const validateToken = (req, res, next) => {
-    console.log("here")
-    const accessToken = req.body.headers.accessToken
-    if(!accessToken) return res.json({err: "User not logged in! Redirecting to login page...."})
+    console.log("validation")
+    // console.log(req.session)
+    if(!req.session.authorized)
+        return res.json(
+            {err: "User not logged in! Redirecting to login page...."}
+        )
 
-    try {
-        const validToken = verify(accessToken, "RANDOMSTRING")
-        req.user = validToken
-        if(validToken){
-            return next()
-        }
-    } catch (err) {
-        if(!accessToken) return res.json({error: err})   
-    }
+    return next()
+    // try {
+    //     const validToken = verify(accessToken, "RANDOMSTRING")
+    //     req.user = validToken
+    //     if(validToken){
+    //     }
+    // } catch (err) {
+    //     if(!accessToken) return res.json({error: err})   
+    // }
 }
 
 module.exports = {validateToken}
+3

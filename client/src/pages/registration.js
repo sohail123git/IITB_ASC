@@ -3,11 +3,8 @@ import {ReactSearchAutocomplete} from "react-search-autocomplete"
 import React from "react"
 import { useEffect,useState } from "react"
 import { Link,useNavigate } from "react-router-dom"
-import Cookies from 'universal-cookie'
 
 function Registration() {
-    const cookie = new Cookies()
-    const accessToken = cookie.get("accessToken")
     const navigate = useNavigate()
     const [items, setCourses] = useState([])
     const [searches, setSearches] = useState([])
@@ -16,9 +13,10 @@ function Registration() {
       setSection(event.target.value);
     };
     useEffect(() => {
-        axios.post("http://localhost:5000/registration", {headers:{
-          accessToken: accessToken,
-        }}).then((response) => {
+        axios.post("http://localhost:5000/registration").then((response) => {
+
+          console.log("/reg")
+          console.log(response.data)
           if(response.data.err){
             alert(response.data.err)
             navigate("/login")
@@ -31,13 +29,11 @@ function Registration() {
             setCourses(response.data.RunningCourses)
           }
         })
-      },[navigate,accessToken])
+      })
 
       const Register = (data) => {
         console.log(data)
-        axios.post("http://localhost:5000/registration/register", {data:data,headers:{
-          accessToken: accessToken,
-        }}).then((response) => {
+        axios.post("http://localhost:5000/registration/register", {data:data}).then((response) => {
           if(response.data.err){
             alert(response.data.err)
             navigate("/login")

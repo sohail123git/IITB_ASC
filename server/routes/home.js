@@ -7,8 +7,11 @@ const studentInfo = require("../services/student_info");
 
 
 router.post("/", validateToken, async (req,res) => {
+    console.log("home")
     var response = ''
-    response = await studentInfo(req)
+    response = await studentInfo(req.session.userid)
+    
+    // console.log(response)
     res.json({info:response.info[0],prevCourses:response.prevCourses,regdCourses:response.regdCourses})
 })
 

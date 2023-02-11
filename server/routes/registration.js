@@ -9,6 +9,8 @@ const CoursesQuery = require("../services/courses");
 
 router.post("/", validateToken, async (req,res) => {
     var response = ''
+    console.log(req.body)
+    console.log("postfor/")
     response = await CoursesQuery(req)
     res.json(response)
 })

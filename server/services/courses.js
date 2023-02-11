@@ -3,7 +3,7 @@ const client = require("../models/database")
 async function CoursesQuery(req) {
     const Courses = await client.query("select course_id as id, title as name from course")
     const tstamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    console.log("coursses!!")
+    console.log("courses Query")
     RunningCourses = await client.query(
         "select course.course_id as id, title as name from "+
         "course,teaches,reg_dates where course.course_id=teaches.course_id and "+

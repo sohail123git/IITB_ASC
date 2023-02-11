@@ -11,6 +11,7 @@ const RunningCourseDeptQuery = require("../services/runningcoursedept");
 
 router.post("/", validateToken, async (req,res) => {
     var response = ''
+    console.log("post req to courses")
     response = await CoursesQuery(req)
     res.json(response)
 })

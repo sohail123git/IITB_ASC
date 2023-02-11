@@ -5,6 +5,9 @@ const {sign} = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 const LoginQuery = require("../services/LoginQuery")
 
+
+// var session;
+
 router.get("/", (req,res) => {
     res.send("Server Is Running")
 })
@@ -25,16 +28,27 @@ router.post("/", async (req,res) => {
       res.json({error: "Invalid user"})
     }
     else{
-      bcrypt.compare(req.body.Password,hashed_password).then((match) => {
-        if(match){
-          const accessToken = sign({ID:ID, Username:req.body.ID},"RANDOMSTRING")
-          res.json(accessToken)
+      bcrypt.compare(req.body.Password, hashed_password, function(err, result) {
+        result == true
+        if(result){
+          // const accessToken = sign({ID:ID, Username:req.body.ID},"RANDOMSTRING")
+          // res.json(accessToken)
+          // session=req.session;
+          req.session.authorized = true;
+          req.session.userid = req.body.ID;
+          res.json(req.session)
         }
         else{
           res.json({error: "Invalid user"}) 
         }
-      })
+
+      });
     }
 })
+
+router.get('/logout', async (req,res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
 
 module.exports = router
