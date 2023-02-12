@@ -123,7 +123,7 @@
 }
 
 .tr:nth-child(odd){
-  background-color: white;
+  background-color: rgb(189, 189, 189);
   height: 40px;
 }
 

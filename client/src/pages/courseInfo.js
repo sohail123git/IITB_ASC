@@ -2,14 +2,10 @@ import React from 'react'
 import { useEffect,useState } from 'react'
 import axios from 'axios'
 import { Link,useParams,useNavigate } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 
 
 function CourseInfo() {
-  const cookie = new Cookies()
-  const accessToken = cookie.get("accessToken")
   const {id} = useParams()
-  console.log(id)
   const [CourseInfo, setCourseinfo] = useState({
     courseID:'',
     courseName:'',
@@ -21,9 +17,7 @@ function CourseInfo() {
   )
   let navigate = useNavigate()
   useEffect(() => {
-    axios.post("http://localhost:5000/courses/courseinfo", {ID:id,headers:{
-      accessToken: accessToken,
-    }}).then((response) => {
+    axios.post("http://localhost:5000/course/courseinfo", {ID:id}).then((response) => {
       if(response.data.err){
         alert(response.data.err)
         navigate("/login")
@@ -44,7 +38,7 @@ function CourseInfo() {
         })
       }
     })
-  },[navigate,id,accessToken])
+  },[navigate,id])
 
   console.log(CourseInfo.preReq)
   if(CourseInfo.courseID===''){
@@ -56,40 +50,61 @@ function CourseInfo() {
       <div className='navbar'>
         <Link className='links' to="/home">Home</Link>
       </div>
-      <div value="Course ID">ID:{CourseInfo.courseID}</div>
-      <div value="Name">Name:{CourseInfo.courseName}</div>
-      <div value="dept_name">Department:{CourseInfo.deptName}</div>
-      <div value="tot_cred">Total Credits:{CourseInfo.credits}</div>
-      <div id = "course_table_div">
-        <table>
-          <tr>
-            <th>CID</th>
-          </tr>
-          {CourseInfo.preReq.map((val, key)=> {
-            return (
-              <tr key={key}>
-                <Link to={"/courses/"+val.prereq_id}>{val.prereq_id}</Link>
-              </tr>
-            )
-            })
-          }
+      <div value="Course ID"><h2>ID: {CourseInfo.courseID}</h2></div>
+      <div value="Name"><h2>Name: {CourseInfo.courseName}</h2></div>
+      <div value="dept_name"><h2>Department: {CourseInfo.deptName}</h2></div>
+      <div value="tot_cred"><h2>Total Credits: {CourseInfo.credits}</h2></div>
+      <div id = "prof_div">
+        <div className="heading">
+            Instructors for this course
+
+        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {CourseInfo.profs.map((val, key)=> {
+              return (
+                <tr key={key}>
+                  <td>
+                    <Link className='links' to={"/instructors/"+val.id}>{val.id}</Link>
+                  </td>
+                  <td>{val.name}</td>
+                </tr>
+              )
+              })
+            }
+          </tbody>
         </table>
       </div>
-      <div id = "prof_div">
-        <table>
-          <tr>
-            <th>ID</th>
-            <th>name</th>
-          </tr>
-          {CourseInfo.profs.map((val, key)=> {
-            return (
-              <tr key={key}>
-                <Link to={"/instructors/"+val.id}>{val.id}</Link>
-                <td>{val.name}</td>
-              </tr>
-            )
-            })
-          }
+      <div className="heading">
+            Prerequisites
+      </div>
+      <div id = "course_table_div">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Course ID</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {CourseInfo.preReq.map((val, key)=> {
+              return (
+                <tr key={key}>
+                  <td>
+                    <Link className='links' to={"/course/"+val.prereq_id}>{val.prereq_id}</Link>
+                  </td>
+                  <td>{val.name}</td>
+                </tr>
+              )
+              })
+            }
+          </tbody>
         </table>
       </div>
     </div>
@@ -108,26 +123,32 @@ function CourseInfo() {
           <div className='Detail' value="dept_name">Department:{CourseInfo.deptName}</div>
           <div className='Detail' value="tot_cred">Total Credits:{CourseInfo.credits}</div>
         </div>
-        <div>
-          <div className="heading">
+        <div id = "prof_div">
+        <div className="heading">
             Instructors for this course
-          </div>
-          <table className='table'>
-            <tr className='tr'>
-              <th className='th'>ID</th>
-              <th className='th'>name</th>
+        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
             </tr>
+          </thead>
+          <tbody>
             {CourseInfo.profs.map((val, key)=> {
               return (
-                <tr className='tr' key={key}>
-                  <Link className='links' to={"/instructors/"+val.id}>{val.id}</Link>
-                  <td className='td'>{val.name}</td>
+                <tr key={key}>
+                  <td>
+                    <Link className='links' to={"/instructors/"+val.id}>{val.id}</Link>
+                  </td>
+                  <td>{val.name}</td>
                 </tr>
               )
               })
             }
-          </table>
-        </div>
+          </tbody>
+        </table>
+      </div>
       </div>
     )
   }

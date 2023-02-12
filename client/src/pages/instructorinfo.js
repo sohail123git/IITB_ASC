@@ -45,95 +45,78 @@ function InstructorInfo() {
   if(instructorInfo.ID === ''){
     return <div></div>
   }
-  else if(instructorInfo.CoursesTaught.length===0 && instructorInfo.CurrentCourses.length===0){
-    return  (
-      <div>
-        <div className='navbar'>
-          <Link className='links' to="/home">Home</Link>
-          <Link className='links' to="/instructors">Instructors</Link>
-        </div>
-        <div className='info'>
-          <div className='Detail' value="Course ID">ID:{instructorInfo.ID}</div>
-          <div className='Detail' value="Username">Name:{instructorInfo.Name}</div>
-          <div className='Detail' value="DeptName">Dept name:{instructorInfo.DeptName}</div>
-        </div>
-        <div className='heading'>
-          No courses are being offered by this professor this semester.          
-        </div>
-        <div className='heading'>
-          No courses were taught by this professor in the previous semesters. 
-        </div>
+
+  var currCoursesDiv;
+  if(instructorInfo.CurrentCourses.length===0)
+  {
+    currCoursesDiv = (
+      <div className='heading'>
+        No courses are being offered by this professor this semester.          
       </div>
     )
   }
-  else if(instructorInfo.CoursesTaught.length===0){
-    return  (
+  else
+  {
+    currCoursesDiv = (
       <div>
-        <div className='navbar'>
-          <Link className='links' to="/home">Home</Link>
-          <Link className='links' to="/instructors">Instructors</Link>
-        </div>
-        <div className='info'>
-          <div className='Detail' value="Course ID">ID:{instructorInfo.ID}</div>
-          <div className='Detail' value="Username">Name:{instructorInfo.Name}</div>
-          <div className='Detail' value="DeptName">Dept name:{instructorInfo.DeptName}</div>
+        <div className="heading">
+          Courses offered by the instructor this semester
         </div>
         <div>
-          <div className="heading">
-            Courses offered by the instructor this semester          
-          </div>
           <table className='table'>
-            <tr className='tr'>
-              <th className='th'>Course ID</th>
-              <th className='th'>Title</th>
-            </tr>
-            {instructorInfo.CurrentCourses.map((val, key)=> {
-              return (
-                <tr className='tr' key={key}>
-                  <Link className='links' to={"/courses/"+val.course_id}>{val.course_id}</Link>
-                  <td className='td'>{val.title}</td>
-                </tr>
-              )
-              })
-            }
+            <thead>
+              <tr className='tr'>
+                <th className='th'>Course ID</th>
+                <th className='th'>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              {instructorInfo.CurrentCourses.map((val, key)=> {
+                return (
+                  <tr className='tr' key={key}>
+                    <Link className='links' to={"/course/"+val.course_id}>{val.course_id}</Link>
+                    <td className='td'>{val.title}</td>
+                  </tr>
+                )
+                })
+              }
+            </tbody>
           </table>
         </div>
-        <div className='heading'>
-          No courses were taught by this professor in the previous semesters.           
-        </div>
       </div>
     )
   }
-  else if(instructorInfo.CurrentCourses.length===0){
-    return  (
+
+  var prevcoursesDiv;
+  if(instructorInfo.CoursesTaught.length===0)
+  {
+    prevcoursesDiv = (
+      <div className='heading'>
+        No courses were taught by this professor in the previous semesters. 
+      </div>
+    )
+  }
+  else
+  {
+    prevcoursesDiv = (
       <div>
-        <div className='navbar'>
-          <Link className='links' to="/home">Home</Link>
-          <Link className='links' to="/instructors">Instructors</Link>
+        <div className="heading">
+          Courses taught previous semesters
         </div>
-        <div className='info'>
-          <div className='Detail' value="Course ID">ID:{instructorInfo.ID}</div>
-          <div className='Detail' value="Username">Name:{instructorInfo.Name}</div>
-          <div className='Detail' value="DeptName">Dept name:{instructorInfo.DeptName}</div>
-        </div>
-        <div className='heading'>
-          No courses are being offered by this professor this semester        
-        </div>
-        <div>
-          <div className="heading">
-            Courses offered by the instructor this semester
-          </div>
-          <table className='table'>
+        <table className='table'>
+          <thead>
             <tr className='tr'>
               <th className='th'>Course ID</th>
               <th className='th'>Title</th>
               <th className='th'>Year</th>
               <th className='th'>Semester</th>
             </tr>
+          </thead>
+          <tbody>
             {instructorInfo.CoursesTaught.map((val, key)=> {
               return (
                 <tr className='tr' key={key}>
-                  <Link className='links' to={"/courses/"+val.course_id}>{val.course_id}</Link>
+                  <Link className='links' to={"/course/"+val.course_id}>{val.course_id}</Link>
                   <td className='td'>{val.title}</td>
                   <td className='td'>{val.year}</td>
                   <td className='td'>{val.semester}</td>
@@ -141,70 +124,27 @@ function InstructorInfo() {
               )
               })
             }
-          </table>
-        </div>
+          </tbody>
+        </table>
       </div>
     )
   }
-  else{
-    return  (
-      <div>
-        <div className='navbar'>
-          <Link className='links' to="/home">Home</Link>
-          <Link className='links' to="/instructors">Instructors</Link>
-        </div>
-        <div className='info'>
-          <div className='Detail' value="Course ID">ID:{instructorInfo.ID}</div>
-          <div className='Detail' value="Username">Name:{instructorInfo.Name}</div>
-          <div className='Detail' value="DeptName">Dept name:{instructorInfo.DeptName}</div>
-        </div>
-        <div>
-          <div className="heading">
-            Courses taught previous semesters
-          </div>
-          <table className='table'>
-            <tr className='tr'>
-              <th className='th'>Course ID</th>
-              <th className='th'>Title</th>
-            </tr>
-            {instructorInfo.CurrentCourses.map((val, key)=> {
-              return (
-                <tr className='tr' key={key}>
-                  <Link className='links' to={"/courses/"+val.course_id}>{val.course_id}</Link>
-                  <td className='td'>{val.title}</td>
-                </tr>
-              )
-              })
-            }
-          </table>
-        </div>
-        <div>
-          <div className="heading">
-            Courses offered by the instructor this semester
-          </div>
-          <table className='table'>
-            <tr className='tr'>
-              <th className='th'>Course ID</th>
-              <th className='th'>Title</th>
-              <th className='th'>Year</th>
-              <th className='th'>Semester</th>
-            </tr>
-            {instructorInfo.CoursesTaught.map((val, key)=> {
-              return (
-                <tr className='tr' key={key}>
-                  <Link className='links' to={"/courses/"+val.course_id}>{val.course_id}</Link>
-                  <td className='td'>{val.title}</td>
-                  <td className='td'>{val.year}</td>
-                  <td className='td'>{val.semester}</td>
-                </tr>
-              )
-              })
-            }
-          </table>
-        </div>
+  
+  return  (
+    <div>
+      <div className='navbar'>
+        <Link className='links' to="/home">Home</Link>
+        <Link className='links' to="/instructors">Instructors</Link>
       </div>
-    )
-  }
+      <div className='info'>
+        <div className='Detail' value="Course ID">ID:{instructorInfo.ID}</div>
+        <div className='Detail' value="Username">Name:{instructorInfo.Name}</div>
+        <div className='Detail' value="DeptName">Dept name:{instructorInfo.DeptName}</div>
+      </div>
+      {currCoursesDiv}          
+      {prevcoursesDiv}      
+    </div>
+  )
 }
 
 export default InstructorInfo

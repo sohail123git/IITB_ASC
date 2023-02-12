@@ -38,15 +38,17 @@ function Courses() {
               Instructors
             </div>
             <table className='table'>
-              {Instructors.map((val, key)=> {
-                return (
-                  <tr className='tr' key={key}>
-                    <Link className='links' to={"/instructors/"+val.id}>{val.id}</Link>
-                    <td className='td'>{val.name}</td>
-                  </tr>
-                )
-                })
-              }
+              <tbody>
+                {Instructors.map((val, key)=> {
+                  return (
+                    <tr className='tr' key={key}>
+                      <Link className='links' to={"/instructors/"+val.id}>{val.id}</Link>
+                      <td className='td'>{val.name}</td>
+                    </tr>
+                  )
+                  })
+                }
+              </tbody>
             </table>
           </div>
     </div>

@@ -34,7 +34,7 @@ app.use("/login/", loginRouter)
 app.use("/home/",homeRouter)
 app.use("/drop/",dropRouter)
 app.use("/registration",registrationRouter)
-app.use("/courses",coursesRouter)
+app.use("/course",coursesRouter) 
 app.use("/instructors",InstructorsRouter)
 
 

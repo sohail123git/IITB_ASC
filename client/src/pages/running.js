@@ -2,29 +2,23 @@ import React from 'react'
 import { useEffect,useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 
 
 
 function Running() {
-  const cookie = new Cookies()
-  const accessToken = cookie.get("accessToken")
   const [departments, setDepartments] = useState([])
   let navigate = useNavigate()
   useEffect(() => {
-    axios.post("http://localhost:5000/courses/running", {headers:{
-      accessToken: accessToken,
-    }}).then((response) => {
+    axios.post("http://localhost:5000/course/running").then((response) => {
       if(response.data.err){
         alert(response.data.err)
         navigate("/login")
       }
       else{
-        console.log(response.data.RunningCourses)
         setDepartments(response.data.Departments)
       }
     })
-  },[navigate,accessToken])
+  },[navigate])
   if(departments.length!==0){
   return  (
     <div>
@@ -34,18 +28,22 @@ function Running() {
         </div>
         <div>
           <div className="heading">
-            Departments offering course this semester this semester
+            Departments offering courses this semester
           </div>
           <table className='table'>
+            <tbody>              
               {departments.map((val, key)=> {
                 return (
                   <tr className='tr' key={key}>
-                    <Link className='links' to={"/courses/running/"+val.dept_name}>{val.dept_name}</Link>
+                    <td>
+                      <Link className='links' to={"/course/running/"+val.dept_name}>{val.dept_name}</Link>
+                    </td>
                     <td className='td'>{val.name}</td>
                   </tr>
                 )
                 })
               }
+            </tbody>
           </table>
         </div>
     </div>
@@ -58,7 +56,7 @@ function Running() {
           <Link className='links' to="/home">Home</Link>
         </div>
         <div className='heading'>
-          No department is offering a course this semester 
+          No department is offering a course this semester
         </div>
       </div>
     )

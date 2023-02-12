@@ -8,7 +8,7 @@ function Registration() {
     const navigate = useNavigate()
     const [items, setCourses] = useState([])
     const [searches, setSearches] = useState([])
-    const [section, setSection] = useState('1')
+    const [section, setSection] = useState()
     const handleChange = (event) => {
       setSection(event.target.value);
     };
@@ -29,9 +29,10 @@ function Registration() {
             setCourses(response.data.RunningCourses)
           }
         })
-      })
+      },[navigate])
 
       const Register = (data) => {
+        console.log("regtry")
         console.log(data)
         axios.post("http://localhost:5000/registration/register", {data:data}).then((response) => {
           if(response.data.err){
@@ -41,6 +42,11 @@ function Registration() {
           else if(response.data.error){
             alert(response.data.error)
             navigate("/home/registration")
+          }
+          else if(!response.data)
+          {
+            alert("Instructors not allowed to register")
+            navigate("/home")
           }
           else{
             alert("Registered Successfully")
@@ -52,7 +58,7 @@ function Registration() {
         // onSearch will have as the first callback parameter
         // the string searched and for the second the results.
         setSearches(results)
-        console.log(string, results)
+        // console.log(string, results)
       }
     
       const handleOnHover = (result) => {
@@ -108,24 +114,35 @@ function Registration() {
           </header>
           <div id = "course_table_div">
             <table className="table">
-              {searches.map((val, key)=> {
-                return (
-                  <tr className="tr" key={key}>
-                    <td className="td">{val.id}</td>
-                    <td className="td">{val.name}</td>
-                    <label className="label">
-                       Choose section
-                       <select value={section} onChange={handleChange}>
-                         <option value="1">s1</option>
-                         <option value="2">s2</option>
-                         <option value="3">s3</option>
-                       </select>
-                     </label>
-                    <button className="regr" onClick={() => Register({id:val.id,section:section})}>Register</button>
-                  </tr>
-                )
-                })
-              }
+              <tbody>
+                {searches.map((val, key)=> {
+                  return (
+                    <tr className="tr" key={key}>
+                      <td className="td">{val.id}</td>
+                      <td className="td">{val.name}</td>
+                      <td>
+                        <label className="label">
+                          Choose section
+                          <select value={section} onChange={handleChange}>
+                            <option>Select</option>
+                            {
+                              val.sections.map((val,key)=> {
+                                return (
+                                  <option key = {key} value={val}>{val}</option>
+                                )
+                              })
+                            }
+                          </select>
+                        </label>
+                      </td>
+                      <td>
+                        <button className="regr" onClick={() => Register({id:val.id,section:section})}>Register</button>
+                      </td>
+                    </tr>
+                  )
+                  })
+                }
+              </tbody>
             </table>
           </div>
         </div>

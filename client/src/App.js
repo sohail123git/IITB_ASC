@@ -17,10 +17,10 @@ function App() {
         <Route path = "/login" element={<Login/>}/> 
         <Route path = "/home" element={<Home/>}/>
         <Route path = "/home/registration" element={<Registration/>}/>
-        <Route path = "/courses" element={<Courses/>}/>
-        <Route path = "/courses/:id" element={<CourseInfo/>}/>
-        <Route path = "/courses/running" element={<Running/>}/>
-        <Route path = "/courses/running/:dept" element={<CourseDept/>}/>
+        <Route path = "/course" element={<Courses/>}/>
+        <Route path = "/course/:id" element={<CourseInfo/>}/>
+        <Route path = "/course/running" element={<Running/>}/>
+        <Route path = "/course/running/:dept" element={<CourseDept/>}/>
         <Route path = "/instructors" element={<Instructors/>}/>
         <Route path = "/instructors/:id" element={<InstructorInfo/>}/>
       </Routes>

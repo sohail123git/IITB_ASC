@@ -2,8 +2,8 @@ const client = require("../models/database")
 const studentInfo = require("./student_info")
 
 async function dropCourse(req) {
-    // const tstamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    const tstamp = "2010-04-01 14:59:30";
+    const tstamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    // const tstamp = "2010-04-01 14:59:30";
     const currSemQuery = await client.query(
         "\
             select * from reg_dates\

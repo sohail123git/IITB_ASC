@@ -2,13 +2,10 @@ import React from 'react'
 import { useEffect,useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 
 axios.defaults.withCredentials=true;
 
 function Home() {
-  const cookie = new Cookies()
-  const accessToken = cookie.get("accessToken")
   const [HomeData, setHomedata] = useState({
     ID:"",
     username:"",
@@ -19,8 +16,9 @@ function Home() {
   })
   let navigate = useNavigate()
   const logout = () => {
-    cookie.remove("accessToken")
-    navigate("/login")
+    axios.get("http://localhost:5000/login/logout").then(()=>{
+      navigate("/login")
+    })
   }
   const drop = (data) => {
     axios.post("http://localhost:5000/drop",{data:data}).then((response) => {
@@ -68,7 +66,7 @@ function Home() {
         })
       }
     })
-  },[navigate,accessToken])
+  },[navigate])
   console.log(HomeData.prevCourses)
   if(HomeData.ID===''){
     return <div></div>
@@ -225,7 +223,7 @@ function Home() {
       <div>
 
         <div className="navbar">
-          <Link className="links" to="/courses">Courses</Link>
+          <Link className="links" to="/course">Courses</Link>
           <Link className="links" to="/instructors">Instructors</Link>
           <Link className="links" to="/home/registration">Registration</Link>
           <Link className="links" to="/login" onClick={logout}>Logout</Link>
@@ -245,6 +243,8 @@ function Home() {
               <tr>
                 <th>Course ID</th>
                 <th>Title</th>
+                <th>Section</th>
+                <th>Drop</th>
               </tr>
             </thead>
             <tbody>
@@ -253,6 +253,7 @@ function Home() {
                   <tr className='tr' key={key}>
                     <td className='td'>{val.course_id}</td>
                     <td className='td'>{val.title}</td>
+                    <td className='td'>{val.sec_id}</td>
                     <td className='td'>
                       <button className='drop' onClick={() => drop(val.course_id)}>Drop</button>
                     </td>

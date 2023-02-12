@@ -17,6 +17,7 @@ router.post("/", validateToken, async (req,res) => {
 
 router.post("/register", validateToken, async (req,res) => {
     var response = ''
+    console.log("postfor/reg")
     response = await registerCourse(req)
     res.json(response)
 })
